@@ -2,7 +2,6 @@ import json
 import openai
 from dotenv import load_dotenv
 import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Tải các biến môi trường từ file .env
 load_dotenv()
@@ -27,7 +26,7 @@ tools = [
             },         
         },
     },
-    { 
+    {   
         "type": "function",
         "function": {
             "name": "extract_keywords",
@@ -46,11 +45,12 @@ tools = [
 # Hàm dịch văn bản từ tiếng Việt sang tiếng Anh
 def translate_to_english(text):
     try:
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[{"role": "user", "content": text}],
-            tools=tools,
-            tools_choice={"type": "function", "function": {"name": "translate_to_english"}},
+            messages=[{"role": "user", "content": f"Dịch sang tiếng Anh: {text}"}],
+            functions=tools,  # Đưa vào các tools (function definitions)
+            function_call={"name": "translate_to_english"}
+            
         )
         return response['choices'][0]['message']['content'].strip()
     except Exception as e:
@@ -60,11 +60,12 @@ def translate_to_english(text):
 # Hàm trích xuất từ khóa sức khỏe từ văn bản tiếng Anh
 def extract_keywords(text):
     try:
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-4o-mini",
-            messages=[{"role": "user", "content": text}],
-            tools=tools,
-            tools_choice={"type": "function", "function": {"name": "extract_keywords"}},
+            messages=[{"role": "user", "content": f"Trích xuất từ khóa: {text}"}],
+            functions=tools,  # Đưa vào các tools (function definitions)
+            function_call={"name": "extract_keywords"}
+            
         )
         return response['choices'][0]['message']['content'].strip()
     except Exception as e:
