@@ -1,58 +1,89 @@
 import json
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
 # Tải các biến môi trường từ file .env
 load_dotenv()
 
-# Khởi tạo OpenAI API với API key
-def init_openai_api():
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+API_KEY = os.getenv("OPENAI_API_KEY")
 
-# Định nghĩa các công cụ (tools) cho API GPT-4
+client = OpenAI(api_key=API_KEY)
+# Định nghĩa các công cụ (tools) cho API GPT
 tools = [
     {
         "type": "function",
         "function": {
             "name": "translate_to_english",
-            "description": "Dịch câu tiếng Việt sang tiếng Anh.",
+            "description": "Translate a sentence from Vietnamese to English.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "text": {"type": "string"}
+                    "translatedSentence": {
+                        "type": "string",
+                        "description": "the English translated sentence from user's input."
+                    }
                 },
-                "required": ["text"]
-            },         
-        },
+                "required": [
+                    "translatedSentence"
+                ]
+            }
+        }
     },
     {   
         "type": "function",
         "function": {
             "name": "extract_keywords",
-            "description": "Trích xuất các từ khóa tiếng Anh liên quan sức khỏe, ví dụ: health.",
+            "description": "Extract health-related English keywords, no name, e.g: health, medical, etc.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "text": {"type": "string"}
+                    "keywords": {
+                        "type": "array",
+                        "description": "the related health keywords from user's input.",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
                 },
-                "required": ["text"]
+                "required": ["keywords"]
             },         
         },  
     }
 ]
 
+def get_function_call(messages, gpt_model, tools=None, tool_choice=None):
+    try:
+        response = client.chat.completions.create(
+            model=gpt_model,
+            messages=messages,
+            tools=tools,
+            tool_choice=tool_choice
+        )
+        return response
+    except Exception as e:
+        print("Unable to generate ChatCompletion response")
+        print(f"Exception: {e}")
+        return e
+
 # Hàm dịch văn bản từ tiếng Việt sang tiếng Anh
 def translate_to_english(text):
     try:
-        response = openai.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": f"Dịch sang tiếng Anh: {text}"}],
-            functions=tools,  # Đưa vào các tools (function definitions)
-            function_call={"name": "translate_to_english"}
-            
+        response = get_function_call(
+            messages=[
+                {"role": "system", "content": "You are a translator."},
+                {"role": "user", "content": f'Translated into English: {text}'}
+            ],
+            gpt_model="gpt-4o-mini",
+            tools=tools,
+            tool_choice=None
         )
-        return response['choices'][0]['message']['content'].strip()
+        translate = response.choices[0].message.tool_calls[0].function.arguments
+        arguments = json.loads(translate)
+        
+        final = arguments.get('translatedSentence')
+        
+        return final
     except Exception as e:
         print(f"Error during translation: {e}")
         return None
@@ -60,14 +91,21 @@ def translate_to_english(text):
 # Hàm trích xuất từ khóa sức khỏe từ văn bản tiếng Anh
 def extract_keywords(text):
     try:
-        response = openai.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": f"Trích xuất từ khóa: {text}"}],
-            functions=tools,  # Đưa vào các tools (function definitions)
-            function_call={"name": "extract_keywords"}
-            
+        response = get_function_call(
+            messages=[
+                {"role": "system", "content": "You are a health expert"},
+                {"role": "user", "content": f'Extract the health keyword from the following sentence: {text}'}
+            ],
+            gpt_model="gpt-4o-mini",
+            tools=tools,
+            tool_choice=None
         )
-        return response['choices'][0]['message']['content'].strip()
+        keywords = response.choices[0].message.tool_calls[0].function.arguments
+        arguments = json.loads(keywords)
+
+        final = arguments.get('keywords')
+        return final
+    
     except Exception as e:
         print(f"Error during keyword extraction: {e}")
         return None
@@ -76,21 +114,21 @@ def extract_keywords(text):
 def process_entry(entry):
     try:
         if entry['response']['function'] == 'QA':
-            print(entry['response']['question'])
-            translated_question = translate_to_english(entry['response']['question'])
-            print(translated_question)
-            # if translated_question:
-            #     entry['response']['question'] = translated_question
-            #     keywords = extract_keywords(translated_question)
-            #     entry['response']['healthInformationKeywords'] = keywords
-            #     entry['response']['language'] = 'en'
 
-            # for dialog in entry['dialog']:
-            #     if '\nContext' in dialog['content']:
-                    # content_part, context_part = dialog['content'].split('\nContext', 1)
-                    #translated_content = translate_to_english(content_part.strip())
-                    # if translated_content:
-                    #     dialog['content'] = f"{translated_content}\nContext{context_part.strip()}"
+            translated_question = translate_to_english(entry['response']['question'])
+            if translated_question:
+                entry['response']['question'] = translated_question
+                keywords = extract_keywords(translated_question)
+                print(keywords)
+                entry['response']['healthInformationKeywords'] = keywords
+                entry['response']['language'] = 'en'
+
+            for dialog in entry['dialog']:
+                if '\nContext' in dialog['content']:
+                    content_part, context_part = dialog['content'].split('\nContext', 1)
+                    translated_content = translate_to_english(content_part.strip())
+                    if translated_content:
+                        dialog['content'] = f"{translated_content}\nContext{context_part.strip()}"
         return entry
     except Exception as e:
         print(f"Error processing entry: {e}")
@@ -117,9 +155,12 @@ def process_responses(input_file, output_file):
     except Exception as e:
         print(f"Error during processing responses: {e}")
 
+
 # Khởi chạy chương trình chính
 if __name__ == '__main__':
-    init_openai_api()
     input_file = 'test.json'
     output_file = 'processed_data.json'
     process_responses(input_file, output_file)
+
+
+
