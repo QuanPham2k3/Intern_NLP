@@ -1,0 +1,408 @@
+[
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Introduction to the ASO data report of Truong Thi Phuong Tram.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            }
+        ],
+        "response": {
+            "function": "QA",
+            "language": "en",
+            "patientIdentifier": "Trương Thị Phương Trâm",
+            "fromDate": "",
+            "toDate": "",
+            "resultsIndices": [],
+            "visitsIndices": [],
+            "visitIdentifier": "NOT_SPECIFIED",
+            "questionMainCategories": [
+                "laboratory_test"
+            ],
+            "healthInformationKeywords": [
+                "ASO",
+                "data",
+                "report",
+                "Truong Thi Phuong Tram"
+            ],
+            "question": "Please introduce the ASO data report of Truong Thi Phuong Tram."
+        },
+        "n_in": 1717,
+        "n_out": 106
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Giới thiệu về báo cáo số liệu ASO của Trương Thị Phương Trâm.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Lập bản thống kê về số bệnh nhân theo các quận và huyện.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "SQL",
+            "language": "vi",
+            "question": "Lập bản thống kê về số bệnh nhân theo các quận và huyện.",
+            "openingQuote": "Bản thống kê về số bệnh nhân theo các quận và huyện.",
+            "questionMainCategories": [
+                "other"
+            ],
+            "mainCategoryKeywords": []
+        },
+        "n_in": 1754,
+        "n_out": 51
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Introduction to the ASO data report of Truong Thi Phuong Tram.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Create a statistical report on the number of patients by districts and counties.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Need to find out what the Indirect Bilirubin level is.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "QA",
+            "language": "en",
+            "patientIdentifier": "KA03042417",
+            "fromDate": "",
+            "toDate": "",
+            "resultsIndices": [],
+            "visitsIndices": [],
+            "visitIdentifier": "MULTIPLE",
+            "questionMainCategories": [
+                "laboratory_test"
+            ],
+            "healthInformationKeywords": [
+                "patient",
+                "Indirect Bilirubin",
+                "level"
+            ],
+            "question": "Please provide the patient's Indirect Bilirubin level."
+        },
+        "n_in": 1757,
+        "n_out": 111
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Introduction to the ASO data report of Truong Thi Phuong Tram.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Make a report on the number of patients by districts and counties.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Need to find out what the Indirect Bilirubin level is.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "How should Triều carry out regular health check-ups?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "QA",
+            "language": "en",
+            "patientIdentifier": "Triều",
+            "fromDate": "",
+            "toDate": "",
+            "resultsIndices": [],
+            "visitsIndices": [],
+            "visitIdentifier": "NOT_SPECIFIED",
+            "questionMainCategories": [
+                "flow_sheet"
+            ],
+            "healthInformationKeywords": [
+                "health",
+                "checks"
+            ],
+            "question": "How should Triều conduct regular health checks?"
+        },
+        "n_in": 1724,
+        "n_out": 114
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Giới thiệu về báo cáo số liệu ASO của Trương Thị Phương Trâm.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Lập bản thống kê về số bệnh nhân theo các quận và huyện.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cần tìm hiểu xem chỉ số Bilirubin Gián Tiếp là bao nhiêu.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Triều nên thực hiện các cuộc kiểm tra sức khỏe đều đặn ra sao?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cung cấp bản tóm tắt về cơ sở động từ của Dũng vào ngày 15/04/2023 nhé?\nContext: Patient Identifier: PID202442758, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "SUMMARY",
+            "language": "vi",
+            "patientIdentifier": "Dũng"
+        },
+        "n_in": 1733,
+        "n_out": 44
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Introduction to the ASO data report of Truong Thi Phuong Tram.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Create a report on the number of patients by districts and towns.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Need to find out what the Indirect Bilirubin level is.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "How should Triều carry out regular health check-ups?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Can you provide a summary of Dung's verb basis on April 15, 2023?\nContext: Patient Identifier: 1708591105, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Can you summarize the course of Khanh's illness and the medications that have been used?\nContext: Patient Identifier: ID202457976, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "QA",
+            "language": "en",
+            "patientIdentifier": "Khánh",
+            "fromDate": "",
+            "toDate": "",
+            "resultsIndices": [],
+            "visitsIndices": [],
+            "visitIdentifier": "NOT_SPECIFIED",
+            "questionMainCategories": [
+                "flow_sheet",
+                "prescriptions"
+            ],
+            "healthInformationKeywords": [
+                "illness",
+                "medications"
+            ],
+            "question": "Can you summarize the progression of Khanh's illness and the medications that have been used?"
+        },
+        "n_in": 1730,
+        "n_out": 123
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Giới thiệu về báo cáo số liệu ASO của Trương Thị Phương Trâm.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Lập bản thống kê về số bệnh nhân theo các quận và huyện.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cần tìm hiểu xem chỉ số Bilirubin Gián Tiếp là bao nhiêu.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Triều nên thực hiện các cuộc kiểm tra sức khỏe đều đặn ra sao?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cung cấp bản tóm tắt về cơ sở động từ của Dũng vào ngày 15/04/2023 nhé?\nContext: Patient Identifier: F20248813, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Có thể tóm tắt diễn biến bệnh Khánh và các loại thuốc đã sử dụng được không?\nContext: Patient Identifier: PID202444170, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Giải thích về tác động của chất béo không bão hòa đối với sức khỏe tim mạch.\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "GENERAL",
+            "language": "vi",
+            "question": "Giải thích về tác động của chất béo không bão hòa đối với sức khỏe tim mạch.",
+            "medicalRelated": true
+        },
+        "n_in": 1767,
+        "n_out": 538
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Introduction to the ASO data report of Truong Thi Phuong Tram.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Create a report on the number of patients according to districts and counties.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Need to find out what the Indirect Bilirubin level is.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "How should Triều carry out regular health check-ups?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Provide a summary of Dũng's verb base on April 15, 2023?\nContext: Patient Identifier: ID202409503, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Can you summarize the progression of Khanh's illness and the types of medications used?\nContext: Patient Identifier: ID202408163, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Explain the impact of unsaturated fats on cardiovascular health.\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Summary of TPO index data Nguyen Van Ly?\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "QA",
+            "language": "en",
+            "patientIdentifier": "Nguyễn Văn Lý",
+            "fromDate": "",
+            "toDate": "",
+            "resultsIndices": [],
+            "visitsIndices": [],
+            "visitIdentifier": "NOT_SPECIFIED",
+            "questionMainCategories": [
+                "laboratory_test"
+            ],
+            "healthInformationKeywords": [
+                "TPO index",
+                "data",
+                "Nguyen Van Ly"
+            ],
+            "question": "Summary of TPO index data Nguyen Van Ly?"
+        },
+        "n_in": 1715,
+        "n_out": 120
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Giới thiệu về báo cáo số liệu ASO của Trương Thị Phương Trâm.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Lập bản thống kê về số bệnh nhân theo các quận và huyện.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cần tìm hiểu xem chỉ số Bilirubin Gián Tiếp là bao nhiêu.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Triều nên thực hiện các cuộc kiểm tra sức khỏe đều đặn ra sao?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cung cấp bản tóm tắt về cơ sở động từ của Dũng vào ngày 15/04/2023 nhé?\nContext: Patient Identifier: 197181973927, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Có thể tóm tắt diễn biến bệnh Khánh và các loại thuốc đã sử dụng được không?\nContext: Patient Identifier: PID202413134, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Giải thích về tác động của chất béo không bão hòa đối với sức khỏe tim mạch.\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Tóm lược dữ liệu chỉ số TPO Nguyễn Văn Lý?\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Biên soạn lại bản tóm lược thông tin vào ngày 20/04/2023.\nContext: Patient Identifier: VL03042453, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "SUMMARY",
+            "language": "vi",
+            "patientIdentifier": "VL03042453"
+        },
+        "n_in": 1754,
+        "n_out": 64
+    },
+    {
+        "dialog": [
+            {
+                "role": "user",
+                "content": "Giới thiệu về báo cáo số liệu ASO của Trương Thị Phương Trâm.\nContext: Patient Identifier: NOT_SPECIFIED, Visit Identifier: NOT_SPECIFIED"
+            },
+            {
+                "role": "user",
+                "content": "Lập bản thống kê về số bệnh nhân theo các quận và huyện.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cần tìm hiểu xem chỉ số Bilirubin Gián Tiếp là bao nhiêu.\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Triều nên thực hiện các cuộc kiểm tra sức khỏe đều đặn ra sao?\nContext: Patient Identifier: KA03042417, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Cung cấp bản tóm tắt về cơ sở động từ của Dũng vào ngày 15/04/2023 nhé?\nContext: Patient Identifier: 262747953116, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Có thể tóm tắt diễn biến bệnh Khánh và các loại thuốc đã sử dụng được không?\nContext: Patient Identifier: PID202415146, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Giải thích về tác động của chất béo không bão hòa đối với sức khỏe tim mạch.\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Tóm lược dữ liệu chỉ số TPO Nguyễn Văn Lý?\nContext: Patient Identifier: 410190389666, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Biên soạn lại bản tóm lược thông tin vào ngày 20/04/2023.\nContext: Patient Identifier: VL03042453, Visit Identifier: MULTIPLE"
+            },
+            {
+                "role": "user",
+                "content": "Liệu bạn có thể chia sẻ bản tóm tắt thông tin này không, vào ngày 20/10/2023?\nContext: Patient Identifier: VL03042453, Visit Identifier: MULTIPLE"
+            }
+        ],
+        "response": {
+            "function": "SUMMARY",
+            "language": "vi",
+            "patientIdentifier": "VL03042453"
+        },
+        "n_in": 1764,
+        "n_out": 64
+    }
+]
