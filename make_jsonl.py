@@ -21,7 +21,7 @@ def create_batch_file(data, batch_file, categorize_system_prompt):
                 if entry['response']['function'] == 'QA':
                     # Chuẩn bị request cho chat completion
                     custom_id = f"request-{idx + 1}"
-                    text = entry
+                    text = json.dumps(entry, ensure_ascii=False),
                     body = {
                         "model": "gpt-4o-mini",
                         "response_format": { 
