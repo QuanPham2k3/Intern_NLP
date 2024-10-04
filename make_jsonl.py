@@ -16,7 +16,7 @@ The output must be in the same JSON format as the input, with only the translate
 # Hàm tạo batch file từ dữ liệu đầu vào
 def create_batch_file(data, batch_file, categorize_system_prompt):
     try:
-        with open(batch_file, 'w', encoding='utf-8') as file:
+        with open(batch_file, 'w', encoding='utf-8' ) as file: # , '
             for idx, entry in enumerate(data):
                 if entry['response']['function'] == 'QA':
                     # Chuẩn bị request cho chat completion
@@ -28,8 +28,8 @@ def create_batch_file(data, batch_file, categorize_system_prompt):
                             "type": "json_object"
                         },
                         "messages": [
-                            {"role": "system", "content": categorize_system_prompt},
-                            {"role": "user", "content": text}
+                            {"role": "system", "content": f"{categorize_system_prompt}"},
+                            {"role": "user", "content": f"{text}"}
                         ],
                         "max_tokens": 1000
                     }
