@@ -5,38 +5,27 @@ def extract_dialogs_in_batches(data, input_num):
         extracted_dialogs = []  # Lưu các đoạn hội thoại đã trích xuất
         previous_dialog_start = None  
 
-        user_content_count = 0   
-
         for entry in data:
             # Lấy câu đầu tiên của đoạn hội thoại hiện tại
             current_dialog_start = entry["dialog"][0]["content"]
 
-            # Nếu đoạn hội thoại hiện tại có câu đầu giống với đoạn trước
-            if current_dialog_start == previous_dialog_start:
-                # Nếu số lượng content của user trong nhóm <= 5, lưu nhóm hiện tại
-                if user_content_count <= input_num :
-                    extracted_dialogs.append(entry)
-                # Reset nhóm và đếm số content của user
-                user_content_count = 0
+            # Đếm số lượng câu content của user trong đoạn hội thoại hiện tại
+            user_count = sum(1 for dialog in entry["dialog"] if dialog["role"] == "user")
 
             # Nếu câu đầu khác
             if current_dialog_start != previous_dialog_start:
-                if user_content_count <= input_num :
-                    extracted_dialogs.append(entry)
-                user_content_count = 0
+                # Nếu số lượng câu của user trong nhóm <= input_num
+                if user_count <= input_num:
+                    extracted_dialogs.append(entry)  
                 
-
-            # Đếm số lượng câu content của user trong đoạn hội thoại hiện tại
-            for dialog in entry["dialog"]:
-                if dialog["role"] == "user":
-                    user_content_count += 1
-
+            else:
+                # Nếu câu đầu giống nhau, kiểm tra số lượng content của user
+                if  user_count <= input_num:
+                    extracted_dialogs.append(entry)  
+            
             # Cập nhật câu đầu tiên trước đó
             previous_dialog_start = current_dialog_start
 
-        # Kiểm tra nếu nhóm cuối cùng thỏa mãn điều kiện thì lưu 
-        if user_content_count <= input_num:
-            extracted_dialogs.append(entry)
 
         return extracted_dialogs
     except Exception as e:
@@ -56,7 +45,7 @@ def save_extracted_data(extracted_data, output_filename):
 if __name__ == '__main__':
     input_file = "sample_data.json"
     output_filename = "new_data.json"
-    input_num =  5
+    input_num =  5  # Số lượng câu của user tối đa
     try:
         # Đọc dữ liệu từ file JSON
         with open(input_file, 'r', encoding='utf-8') as file:
