@@ -8,27 +8,27 @@ def extract_dialogs_in_batches(data, input_num):
         dialog_count = 0  # Đếm số lượng đoạn hội thoại đã lấy
 
         for entry in data:
-            if entry["dialog"]:
-                # Lấy câu đầu tiên của đoạn hội thoại hiện tại
-                current_dialog_start = entry["dialog"][0]["content"]
+            
+            # Lấy câu đầu tiên của đoạn hội thoại hiện tại
+            current_dialog_start = entry["dialog"][0]["content"]
 
-                # Kiểm tra xem có phải đoạn mới hay không (câu đầu khác đoạn trước)
-                if current_dialog_start != previous_dialog_start:
-                    # Nếu nhóm trước có dữ liệu, lưu nó vào danh sách trích xuất
-                    if current_dialog_group:
-                        extracted_dialogs.extend(current_dialog_group)
-                        dialog_count += 1  # Tăng số đoạn hội thoại đã lấy
-                        current_dialog_group = []  # Reset nhóm hội thoại hiện tại
+            # Kiểm tra xem có phải đoạn mới hay không (câu đầu khác đoạn trước)
+            if current_dialog_start != previous_dialog_start:
+                # Nếu nhóm trước có dữ liệu, lưu nó vào danh sách trích xuất
+                if current_dialog_group:
+                    extracted_dialogs.extend(current_dialog_group)
+                    dialog_count += 1  # Tăng số đoạn hội thoại đã lấy
+                    current_dialog_group = []  # Reset nhóm hội thoại hiện tại
 
-                    # Nếu đã đủ  đoạn hội thoại thì dừng
-                    if dialog_count >= input_num:
-                        break
+                # Nếu đã đủ  đoạn hội thoại thì dừng
+                if dialog_count >= input_num:
+                    break
 
-                # Thêm entry hiện tại vào nhóm hội thoại cùng câu đầu
-                current_dialog_group.append(entry)
-                
-                # Cập nhật câu đầu của đoạn hội thoại trước đó
-                previous_dialog_start = current_dialog_start
+            # Thêm entry hiện tại vào nhóm hội thoại cùng câu đầu
+            current_dialog_group.append(entry)
+            
+            # Cập nhật câu đầu của đoạn hội thoại trước đó
+            previous_dialog_start = current_dialog_start
 
 
         return extracted_dialogs
