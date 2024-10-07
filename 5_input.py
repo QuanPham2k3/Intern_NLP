@@ -3,31 +3,36 @@ import json
 def extract_dialogs_in_batches(data, input_num):
     try:
         extracted_dialogs = []  # Lưu các đoạn hội thoại đã trích xuất
-        previous_dialog_start = None  
+        current_dialog_group = []  # Nhóm hiện tại các đoạn hội thoại có cùng câu đầu
+        previous_dialog_start = None  # Câu đầu tiên của đoạn trước
+        dialog_count = 0  # Đếm số lượng đoạn hội thoại đã lấy
 
         for entry in data:
-            # Lấy câu đầu tiên của đoạn hội thoại hiện tại
-            current_dialog_start = entry["dialog"][0]["content"]
+            if entry["dialog"]:
+                # Lấy câu đầu tiên của đoạn hội thoại hiện tại
+                current_dialog_start = entry["dialog"][0]["content"]
 
-            # Đếm số lượng câu content của user trong đoạn hội thoại hiện tại
-            user_count = sum(1 for dialog in entry["dialog"] if dialog["role"] == "user")
+                # Kiểm tra xem có phải đoạn mới hay không (câu đầu khác đoạn trước)
+                if current_dialog_start != previous_dialog_start:
+                    # Nếu nhóm trước có dữ liệu, lưu nó vào danh sách trích xuất
+                    if current_dialog_group:
+                        extracted_dialogs.extend(current_dialog_group)
+                        dialog_count += 1  # Tăng số đoạn hội thoại đã lấy
+                        current_dialog_group = []  # Reset nhóm hội thoại hiện tại
 
-            # Nếu câu đầu khác
-            if current_dialog_start != previous_dialog_start:
-                # Nếu số lượng câu của user trong nhóm <= input_num
-                if user_count <= input_num:
-                    extracted_dialogs.append(entry)  
+                    # Nếu đã đủ  đoạn hội thoại thì dừng
+                    if dialog_count >= input_num:
+                        break
+
+                # Thêm entry hiện tại vào nhóm hội thoại cùng câu đầu
+                current_dialog_group.append(entry)
                 
-            else:
-                # Nếu câu đầu giống nhau, kiểm tra số lượng content của user
-                if  user_count <= input_num:
-                    extracted_dialogs.append(entry)  
-            
-            # Cập nhật câu đầu tiên trước đó
-            previous_dialog_start = current_dialog_start
+                # Cập nhật câu đầu của đoạn hội thoại trước đó
+                previous_dialog_start = current_dialog_start
 
 
         return extracted_dialogs
+
     except Exception as e:
         print(f"Lỗi: {e}")
         return []
